@@ -68,4 +68,12 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 config.vm.network "private_network", type: "dhcp"
+config.vm.provision "shell", inline: <<-END
+apt update
+apt install -y openjdk-11-jdk --fix-missing
+apt install -y --fix-broken
+apt install -y maven --fix-missing
+cd /vagrant/spring-petclinic
+mvn spring-boot:run
+END
 end
